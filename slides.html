@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>สไลด์บรรยาย · ระบบติดตาม PA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1E3A5F; --navy-soft:#2C4A6E; --ink:#1A2530; --ink-muted:#5B6875;
+  --orange:#C2570A; --rule:#E2E6EB; --bg:#FFFFFF; --bg-raise:#F7F8FA;
+  --tl-green:#047857; --tl-amber:#B45309; --tl-red:#B91C1C; --tl-none:#6B7280;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; font-family:'IBM Plex Sans Thai','Sarabun','Noto Sans Thai','Leelawadee UI','Tahoma',sans-serif;
+  color:var(--ink); background:var(--bg); line-height:1.55; overflow:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--navy); color:#fff}
+
+/* ---------- deck ---------- */
+.deck{position:fixed; inset:0}
+.slide{
+  position:absolute; inset:0; display:none;
+  flex-direction:column; justify-content:center;
+  padding:clamp(40px,7vh,90px) clamp(36px,9vw,160px) clamp(96px,14vh,140px);
+  max-width:1280px; margin:0 auto;
+}
+.slide.active{display:flex; animation:fade .32s ease both}
+@keyframes fade{from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:none}}
+
+.eyebrow{font-size:clamp(13px,1.5vw,17px); font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--orange); margin:0 0 clamp(10px,2vh,20px)}
+.slide h1{font-size:clamp(40px,7.5vw,84px); line-height:1.08; font-weight:700; color:var(--navy); letter-spacing:-0.01em; margin:0}
+.slide h2{font-size:clamp(30px,5.2vw,60px); line-height:1.12; font-weight:700; color:var(--navy); margin:0 0 clamp(20px,4vh,40px)}
+.slide .sub{font-size:clamp(18px,2.4vw,28px); color:var(--ink-muted); margin:clamp(16px,3vh,28px) 0 0}
+.slide .foot{font-size:clamp(15px,1.8vw,20px); color:var(--ink-muted); margin-top:clamp(20px,4vh,40px)}
+.slide .foot code,.slide .url{font-family:'IBM Plex Sans Thai',ui-monospace,monospace; color:var(--navy-soft)}
+
+ul.points{list-style:none; margin:0; padding:0; max-width:960px}
+ul.points li{
+  position:relative; padding:clamp(8px,1.6vh,15px) 0 clamp(8px,1.6vh,15px) clamp(28px,3vw,44px);
+  font-size:clamp(20px,3vw,34px); color:var(--ink); border-top:1px solid var(--rule);
+}
+ul.points li:first-child{border-top:none}
+ul.points li::before{content:''; position:absolute; left:0; top:clamp(20px,3.1vh,32px); width:clamp(12px,1.3vw,18px); height:3px; background:var(--orange)}
+ul.points li b,ul.points li strong{color:var(--navy); font-weight:700}
+ul.points li .muted{color:var(--ink-muted); font-size:0.82em}
+
+/* agenda compact */
+ul.agenda li{font-size:clamp(19px,2.7vw,30px)}
+ul.agenda .code{display:inline-block; min-width:clamp(48px,5vw,76px); font-weight:700; color:var(--orange)}
+
+/* big recap */
+.recap{display:grid; gap:clamp(12px,2.4vh,22px); max-width:1000px}
+.recap .step{display:flex; gap:clamp(16px,2.4vw,30px); align-items:baseline; border-top:1px solid var(--rule); padding-top:clamp(12px,2.4vh,22px)}
+.recap .step:first-child{border-top:none; padding-top:0}
+.recap .n{font-size:clamp(28px,4vw,52px); font-weight:700; color:var(--orange); min-width:clamp(36px,4vw,60px)}
+.recap .t{font-size:clamp(22px,3.4vw,40px); color:var(--navy); font-weight:600}
+.recap .t .muted{display:block; color:var(--ink-muted); font-weight:400; font-size:0.62em; margin-top:2px}
+
+/* traffic dots (semantic) */
+.dot{display:inline-block; width:clamp(13px,1.4vw,18px); height:clamp(13px,1.4vw,18px); border-radius:50%; vertical-align:baseline; margin-right:6px; transform:translateY(1px)}
+.dot.g{background:var(--tl-green)} .dot.a{background:var(--tl-amber)} .dot.r{background:var(--tl-red)} .dot.n{background:var(--tl-none)}
+
+/* title slide */
+.slide--title{justify-content:center}
+.slide--title .rule{width:64px; height:4px; background:var(--orange); margin:clamp(20px,4vh,34px) 0}
+
+/* contact */
+.contact{font-size:clamp(19px,2.6vw,30px); line-height:1.9; color:var(--ink)}
+.contact b{color:var(--navy)}
+
+/* ---------- chrome ---------- */
+.bar{position:fixed; left:0; right:0; bottom:0; height:5px; background:var(--rule); z-index:5}
+.bar-fill{position:absolute; inset:0 auto 0 0; width:0; background:var(--navy); transition:width .25s}
+.foot-l{position:fixed; left:clamp(20px,4vw,40px); bottom:clamp(16px,2.6vh,26px); font-size:13px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--orange); z-index:6}
+.counter{position:fixed; right:clamp(20px,4vw,40px); bottom:clamp(14px,2.4vh,24px); font-size:clamp(14px,1.6vw,18px); color:var(--ink-muted); font-variant-numeric:tabular-nums; z-index:6}
+.counter b{color:var(--navy)}
+.topbar{position:fixed; top:clamp(14px,2.4vh,22px); right:clamp(18px,4vw,34px); display:flex; gap:14px; align-items:center; z-index:6}
+.topbar a,.topbar button{font:inherit; font-size:13.5px; color:var(--ink-muted); text-decoration:none; background:none; border:1px solid var(--rule); border-radius:3px; padding:5px 11px; cursor:pointer}
+.topbar a:hover,.topbar button:hover{color:var(--navy); border-color:var(--navy)}
+.hint{position:fixed; left:50%; transform:translateX(-50%); bottom:clamp(14px,2.4vh,24px); font-size:13px; color:var(--ink-muted); z-index:6}
+.hint kbd{font-family:inherit; border:1px solid var(--rule); border-bottom-width:2px; border-radius:4px; padding:0 6px; color:var(--navy-soft); font-size:12px}
+
+@media (max-width:760px){
+  .hint{display:none}
+  .slide{padding:64px 24px 92px}
+  ul.points li::before{top:clamp(16px,2.6vh,24px)}
+}
+@media print{ .topbar,.hint{display:none} }
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+  <!-- 1 · title -->
+  <section class="slide slide--title active">
+    <p class="eyebrow">PA Tracking · มจธ.</p>
+    <h1>ระบบติดตาม PA</h1>
+    <div class="rule"></div>
+    <p class="sub">อบรมการใช้งานสำหรับเจ้าหน้าที่หน่วยงาน (requester)</p>
+    <p class="foot">ระบบจริง · <span class="url">pa.kmutt.ac.th</span></p>
+  </section>
+
+  <!-- 2 · agenda -->
+  <section class="slide">
+    <p class="eyebrow">วันนี้เรียนอะไรบ้าง</p>
+    <h2>6 โมดูล</h2>
+    <ul class="points agenda">
+      <li><span class="code">M0</span>เข้าสู่ระบบ</li>
+      <li><span class="code">M1</span>อ่าน PA ของหน่วยงาน</li>
+      <li><span class="code">M2</span>คำขอเปลี่ยนแปลง PA</li>
+      <li><span class="code">M3</span>กรอกผลดำเนินงาน <span class="muted">— โมดูลหลัก</span></li>
+      <li><span class="code">M4</span>โครงการ</li>
+      <li><span class="code">M5</span>ติดตามสถานะ &amp; รายงาน</li>
+    </ul>
+  </section>
+
+  <!-- 3 · เปิด -->
+  <section class="slide">
+    <p class="eyebrow">เปิด</p>
+    <h2>PA คืออะไร</h2>
+    <ul class="points">
+      <li><b>PA</b> = ชุดตัวชี้วัดของหน่วยงานในแต่ละปีงบประมาณ <span class="muted">(มีเป้าหมาย + น้ำหนัก รวม 100%)</span></li>
+      <li>บทบาทของคุณ = <b>requester</b> — ผู้กรอกผลของหน่วยงานตัวเอง</li>
+      <li>ทุกอย่างทำบนระบบจริง <b>pa.kmutt.ac.th</b></li>
+    </ul>
+  </section>
+
+  <!-- 4 · M0 -->
+  <section class="slide">
+    <p class="eyebrow">M0</p>
+    <h2>เข้าสู่ระบบ</h2>
+    <ul class="points">
+      <li>เข้าด้วย <b>อีเมล มจธ.</b> + รหัสผ่าน</li>
+      <li>คนใหม่: ตั้งรหัสผ่านจาก <b>อีเมลคำเชิญ</b></li>
+      <li>ลืมรหัส: กด <b>"ลืมรหัสผ่าน?"</b> <span class="muted">— เปิดลิงก์ในเบราว์เซอร์เดียวกับที่กดขอ</span></li>
+    </ul>
+  </section>
+
+  <!-- 5 · M1 -->
+  <section class="slide">
+    <p class="eyebrow">M1</p>
+    <h2>อ่าน PA ของหน่วยงาน</h2>
+    <ul class="points">
+      <li>2 หน้าที่ต้องรู้จัก: <b>"ภาพรวมผลดำเนินงาน"</b> + <b>"ตัวชี้วัดของหน่วยงาน"</b></li>
+      <li>ตอบให้ได้: มีกี่ตัวชี้วัด · เป้า/น้ำหนัก <span class="muted">(รวม 100%)</span> · ตัวไหนยังไม่กรอก</li>
+    </ul>
+  </section>
+
+  <!-- 6 · M2 -->
+  <section class="slide">
+    <p class="eyebrow">M2</p>
+    <h2>คำขอเปลี่ยนแปลง PA</h2>
+    <ul class="points">
+      <li>แก้ <b>เป้าหมาย / น้ำหนัก / เพิ่ม-ลบตัวชี้วัด</b></li>
+      <li>ทำผ่านเมนู <b>"การดำเนินการ"</b> → <b>"ส่งคำขอ"</b></li>
+      <li>รอบอบรมนี้: <b>ช่วงอนุมัติอัตโนมัติเปิด</b> → มีผลทันที</li>
+    </ul>
+  </section>
+
+  <!-- 7 · M3 -->
+  <section class="slide">
+    <p class="eyebrow">M3 · โมดูลหลัก</p>
+    <h2>กรอกผลดำเนินงาน</h2>
+    <ul class="points">
+      <li>คลิกชื่อตัวชี้วัด → <b>หน้ากรอกผล PA</b></li>
+      <li>เลือก <b>รอบ</b> (เช่น M9) → กรอกผล + หมายเหตุ → <b>"บันทึกร่าง"</b></li>
+      <li><b>ร่าง</b> = แก้ได้ ยังไม่ส่ง <span class="muted">· เพดานผล 120%</span></li>
+    </ul>
+  </section>
+
+  <!-- 8 · M4 -->
+  <section class="slide">
+    <p class="eyebrow">M4</p>
+    <h2>โครงการ</h2>
+    <ul class="points">
+      <li>สร้างผ่าน <b>wizard 7 ขั้น</b></li>
+      <li><b>ฉบับร่าง</b> ปลอดภัย — แก้/ลบได้ ยังไม่ใช้งานจริง</li>
+      <li><b>"บันทึกและส่งโครงการ"</b> = ยืนยันส่ง <span class="muted">(วันนี้อย่ากด)</span></li>
+    </ul>
+  </section>
+
+  <!-- 9 · M5 -->
+  <section class="slide">
+    <p class="eyebrow">M5</p>
+    <h2>ติดตามสถานะ &amp; รายงาน</h2>
+    <ul class="points">
+      <li><b>2 แกน คนละเรื่อง</b></li>
+      <li><b>สถานะ</b> = ขั้นตอน <span class="muted">(ร่าง / รอรีวิว / อนุมัติแล้ว / ส่งกลับแก้ไข)</span></li>
+      <li><b>ผลลัพธ์</b> = <span class="dot g"></span>เขียว <span class="dot a"></span>เหลือง <span class="dot r"></span>แดง <span class="muted">(บรรลุ / ใกล้ / ยังไม่ถึงเป้า)</span></li>
+      <li>เฉพาะ <b>"อนุมัติแล้ว"</b> เท่านั้นที่ขึ้นรายงาน PDF</li>
+    </ul>
+  </section>
+
+  <!-- 10 · recap -->
+  <section class="slide">
+    <p class="eyebrow">สรุป</p>
+    <h2>3 ขั้นที่ต้องจำ</h2>
+    <div class="recap">
+      <div class="step"><span class="n">1</span><span class="t">เข้าระบบ <span class="muted">login ด้วยอีเมล มจธ.</span></span></div>
+      <div class="step"><span class="n">2</span><span class="t">เปิดดู PA <span class="muted">คลิกตัวชี้วัด → หน้ากรอกผล PA</span></span></div>
+      <div class="step"><span class="n">3</span><span class="t">กรอกผล + บันทึกร่าง <span class="muted">เลือกรอบ กรอกเลข แล้วบันทึกร่าง</span></span></div>
+    </div>
+  </section>
+
+  <!-- 11 · contact -->
+  <section class="slide">
+    <p class="eyebrow">ขอความช่วยเหลือ</p>
+    <h2>ทีมผู้ดูแลระบบ PA</h2>
+    <p class="contact">
+      <b>ทยากร</b> โทร. 9355 &nbsp;·&nbsp; <b>อัจฉรียา</b> โทร. 8177 &nbsp;·&nbsp; <b>ภัทรนันท์</b> โทร. 9370
+    </p>
+    <p class="foot">ระบบจริง <span class="url">pa.kmutt.ac.th</span> &nbsp;·&nbsp; คู่มือเต็ม + FAQ + แบบทดสอบ: <a href="index.html">เปิดคู่มือ →</a></p>
+  </section>
+
+</div>
+
+<div class="topbar">
+  <a href="index.html">← คู่มือเต็ม</a>
+  <button id="fsBtn" type="button">เต็มจอ</button>
+</div>
+<div class="foot-l">PA Tracking</div>
+<div class="counter"><b id="cur">1</b> / <span id="tot">11</span></div>
+<div class="hint"><kbd>←</kbd> <kbd>→</kbd> เลื่อนสไลด์ · <kbd>F</kbd> เต็มจอ · หรือคลิกซ้าย/ขวา</div>
+<div class="bar"><div class="bar-fill" id="barFill"></div></div>
+
+<script>
+(function(){
+  var slides=Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var n=slides.length, idx=0;
+  var curEl=document.getElementById('cur'), totEl=document.getElementById('tot'), fill=document.getElementById('barFill');
+  if(totEl) totEl.textContent=n;
+
+  function clamp(i){ return Math.max(0, Math.min(n-1, i)); }
+  function show(i){
+    idx=clamp(i);
+    slides.forEach(function(s,k){ s.classList.toggle('active', k===idx); });
+    if(curEl) curEl.textContent=idx+1;
+    if(fill) fill.style.width=((idx+1)/n*100)+'%';
+    if(('#'+(idx+1))!==location.hash) history.replaceState(null,'','#'+(idx+1));
+  }
+  function next(){ show(idx+1); }
+  function prev(){ show(idx-1); }
+
+  document.addEventListener('keydown', function(e){
+    if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '||e.key==='ArrowDown'){ e.preventDefault(); next(); }
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'||e.key==='ArrowUp'){ e.preventDefault(); prev(); }
+    else if(e.key==='Home'){ e.preventDefault(); show(0); }
+    else if(e.key==='End'){ e.preventDefault(); show(n-1); }
+    else if(e.key==='f'||e.key==='F'){ toggleFs(); }
+  });
+
+  // click left third = prev, rest = next (ignore links/buttons)
+  document.getElementById('deck').addEventListener('click', function(e){
+    if(e.target.closest('a,button')) return;
+    if(e.clientX < window.innerWidth*0.33) prev(); else next();
+  });
+
+  // touch swipe
+  var x0=null;
+  document.addEventListener('touchstart', function(e){ x0=e.touches[0].clientX; }, {passive:true});
+  document.addEventListener('touchend', function(e){
+    if(x0===null) return; var dx=e.changedTouches[0].clientX-x0; x0=null;
+    if(Math.abs(dx)>45){ dx<0 ? next() : prev(); }
+  }, {passive:true});
+
+  function toggleFs(){
+    if(!document.fullscreenElement){ (document.documentElement.requestFullscreen||function(){})(); }
+    else if(document.exitFullscreen){ document.exitFullscreen(); }
+  }
+  var fsBtn=document.getElementById('fsBtn');
+  if(fsBtn) fsBtn.addEventListener('click', toggleFs);
+
+  window.addEventListener('hashchange', function(){
+    var h=parseInt(location.hash.slice(1),10);
+    if(!isNaN(h)) show(h-1);
+  });
+
+  // init from hash (deep link)
+  var start=parseInt(location.hash.slice(1),10);
+  show(isNaN(start)?0:start-1);
+})();
+</script>
+</body>
+</html>
