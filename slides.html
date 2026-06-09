@@ -130,8 +130,8 @@ ul.agenda .code{display:inline-block; min-width:clamp(48px,5vw,76px); font-weigh
       <li><span class="code">M0</span>เข้าสู่ระบบ</li>
       <li><span class="code">M1</span>อ่าน PA ของหน่วยงาน</li>
       <li><span class="code">M2</span>คำขอเปลี่ยนแปลง PA</li>
-      <li><span class="code">M3</span>กรอกผลดำเนินงาน <span class="muted">— โมดูลหลัก</span></li>
-      <li><span class="code">M4</span>โครงการ</li>
+      <li><span class="code">M3</span>โครงการ</li>
+      <li><span class="code">M4</span>กรอกผลดำเนินงาน <span class="muted">— โมดูลหลัก</span></li>
       <li><span class="code">M5</span>ติดตามสถานะ &amp; รายงาน</li>
     </ul>
   </section>
@@ -158,7 +158,7 @@ ul.agenda .code{display:inline-block; min-width:clamp(48px,5vw,76px); font-weigh
         <text class="cs-code" x="214" y="172" text-anchor="middle">M1</text>
         <text class="cs-name" x="214" y="190" text-anchor="middle">อ่าน PA</text>
         <rect class="cs-box" x="312" y="150" width="128" height="54" rx="4"/>
-        <text class="cs-code" x="376" y="172" text-anchor="middle">M3</text>
+        <text class="cs-code" x="376" y="172" text-anchor="middle">M4</text>
         <text class="cs-name" x="376" y="190" text-anchor="middle">กรอกผล</text>
         <rect class="cs-box" x="474" y="150" width="176" height="54" rx="4"/>
         <text class="cs-code" x="562" y="172" text-anchor="middle">M5</text>
@@ -168,7 +168,7 @@ ul.agenda .code{display:inline-block; min-width:clamp(48px,5vw,76px); font-weigh
         <line class="cs-arrow" x1="376" y1="240" x2="376" y2="204" marker-end="url(#csah)"/>
         <text class="cs-tag" x="392" y="230" text-anchor="start">ป้อนผลที่กรอก</text>
         <rect class="cs-box cs-box--found" x="300" y="240" width="152" height="56" rx="4"/>
-        <text class="cs-code" x="376" y="266" text-anchor="middle">M4</text>
+        <text class="cs-code" x="376" y="266" text-anchor="middle">M3</text>
         <text class="cs-name" x="376" y="284" text-anchor="middle">โครงการ</text>
       </svg>
     </div>
@@ -220,23 +220,23 @@ ul.agenda .code{display:inline-block; min-width:clamp(48px,5vw,76px); font-weigh
 
   <!-- 7 · M3 -->
   <section class="slide">
-    <p class="eyebrow">M3 · โมดูลหลัก</p>
-    <h2>กรอกผลดำเนินงาน</h2>
-    <ul class="points">
-      <li>คลิกชื่อตัวชี้วัด → <b>หน้ากรอกผล PA</b></li>
-      <li>เลือก <b>รอบ</b> (เช่น M9) → กรอกผล + หมายเหตุ → <b>"บันทึกร่าง"</b></li>
-      <li><b>ร่าง</b> = แก้ได้ ยังไม่ส่ง <span class="muted">· เพดานผล 120%</span></li>
-    </ul>
-  </section>
-
-  <!-- 8 · M4 -->
-  <section class="slide">
-    <p class="eyebrow">M4</p>
+    <p class="eyebrow">M3</p>
     <h2>โครงการ</h2>
     <ul class="points">
       <li>สร้างผ่าน <b>wizard 7 ขั้น</b></li>
       <li><b>ฉบับร่าง</b> ปลอดภัย — แก้/ลบได้ ยังไม่ใช้งานจริง</li>
       <li><b>"บันทึกและส่งโครงการ"</b> = ยืนยันส่ง <span class="muted">(วันนี้อย่ากด)</span></li>
+    </ul>
+  </section>
+
+  <!-- 8 · M4 · โมดูลหลัก -->
+  <section class="slide">
+    <p class="eyebrow">M4 · โมดูลหลัก</p>
+    <h2>กรอกผลดำเนินงาน</h2>
+    <ul class="points">
+      <li>คลิกชื่อตัวชี้วัด → <b>หน้ากรอกผล PA</b></li>
+      <li>เลือก <b>รอบ</b> (เช่น M9) → กรอกผล + หมายเหตุ → <b>"บันทึกร่าง"</b></li>
+      <li><b>ร่าง</b> = แก้ได้ ยังไม่ส่ง <span class="muted">· เพดานผล 120%</span></li>
     </ul>
   </section>
 
