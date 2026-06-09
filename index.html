@@ -343,29 +343,29 @@ figure.shot figcaption{font-size:12.5px; color:var(--ink-muted); padding:7px 12p
             <text class="dg-tag--muted" x="214" y="60" text-anchor="middle">เมื่อมีเหตุ</text>
             <line class="dg-arrow--branch" x1="214" y1="112" x2="214" y2="150" marker-end="url(#ah)"/>
             <rect class="dg-box dg-box--branch" x="139" y="70" width="150" height="42" rx="4"/>
-            <text class="dg-code" x="214" y="88" text-anchor="middle">M2</text>
+            <text class="dg-code" data-slug="changereq" x="214" y="88" text-anchor="middle">M2</text>
             <text class="dg-name dg-name--branch" x="214" y="105" text-anchor="middle">ขอเปลี่ยน PA</text>
             <line class="dg-arrow" x1="112" y1="177" x2="150" y2="177" marker-end="url(#ah)"/>
             <line class="dg-arrow" x1="278" y1="177" x2="312" y2="177" marker-end="url(#ah)"/>
             <line class="dg-arrow" x1="440" y1="177" x2="474" y2="177" marker-end="url(#ah)"/>
             <rect class="dg-box" x="8" y="150" width="104" height="54" rx="4"/>
-            <text class="dg-code" x="60" y="172" text-anchor="middle">M0</text>
+            <text class="dg-code" data-slug="login" x="60" y="172" text-anchor="middle">M0</text>
             <text class="dg-name" x="60" y="190" text-anchor="middle">เข้าสู่ระบบ</text>
             <rect class="dg-box" x="150" y="150" width="128" height="54" rx="4"/>
-            <text class="dg-code" x="214" y="172" text-anchor="middle">M1</text>
+            <text class="dg-code" data-slug="readpa" x="214" y="172" text-anchor="middle">M1</text>
             <text class="dg-name" x="214" y="190" text-anchor="middle">อ่าน PA</text>
             <rect class="dg-box" x="312" y="150" width="128" height="54" rx="4"/>
-            <text class="dg-code" x="376" y="172" text-anchor="middle">M4</text>
+            <text class="dg-code" data-slug="fillresult" x="376" y="172" text-anchor="middle">M4</text>
             <text class="dg-name" x="376" y="190" text-anchor="middle">กรอกผล</text>
             <rect class="dg-box" x="474" y="150" width="176" height="54" rx="4"/>
-            <text class="dg-code" x="562" y="172" text-anchor="middle">M5</text>
+            <text class="dg-code" data-slug="track" x="562" y="172" text-anchor="middle">M5</text>
             <text class="dg-name" x="562" y="190" text-anchor="middle">ติดตาม · ผลลัพธ์</text>
             <path class="dg-loop" d="M562,204 L562,300 Q562,316 546,316 L230,316 Q214,316 214,300 L214,204" marker-end="url(#ah)"/>
             <text class="dg-tag" x="388" y="340" text-anchor="middle">ทำทุกรอบ</text>
             <line class="dg-arrow" x1="376" y1="240" x2="376" y2="204" marker-end="url(#ah)"/>
             <text class="dg-tag" x="392" y="230" text-anchor="start">ป้อนผลที่กรอก</text>
             <rect class="dg-box dg-box--found" x="300" y="240" width="152" height="56" rx="4"/>
-            <text class="dg-code" x="376" y="266" text-anchor="middle">M3</text>
+            <text class="dg-code" data-slug="project" x="376" y="266" text-anchor="middle">M3</text>
             <text class="dg-name" x="376" y="284" text-anchor="middle">โครงการ</text>
           </svg>
           <figcaption class="dg-cap">วงกลาง <strong class="lbl">อ่าน PA → กรอกผล → ติดตาม</strong> คือสิ่งที่ทำทุกรอบ · <strong class="lbl">โครงการ (M3)</strong> คืองานที่ทำให้ตัวชี้วัดบรรลุเป้า — เป็นที่มาของผลที่กรอก · <strong class="lbl">ขอเปลี่ยน PA (M2)</strong> ทำเมื่อมีเหตุเท่านั้น</figcaption>
@@ -877,24 +877,45 @@ figure.shot figcaption{font-size:12.5px; color:var(--ink-muted); padding:7px 12p
 
 <script>
 (function(){
-  function pill(n,active){
-    var isAct=(n.id===active);
+  // ============================================================================
+  //  MODULE IDENTITY — SINGLE SOURCE OF TRUTH
+  //  To reorder/renumber modules: (1) reorder this array, (2) physically move
+  //  the matching <section> blocks (and slides.html), then open on localhost —
+  //  the red self-check banner lists every static spot still out of sync.
+  //  - id ('m'+i) and num ('M'+i) DERIVE from array position.
+  //  - slug is STABLE (never changes on reorder); role picks the diagram slot.
+  //  Editorial prose stays verbatim in the HTML; the checker only verifies it.
+  // ============================================================================
+  var MODULES = [
+    {slug:'login',      nav:'เข้าสู่ระบบ',       dgName:'เข้าสู่ระบบ',      role:'core'},
+    {slug:'readpa',     nav:'อ่าน PA',          dgName:'อ่าน PA',         role:'core'},
+    {slug:'changereq',  nav:'คำขอเปลี่ยน PA',    dgName:'ขอเปลี่ยน PA',    role:'branch'},
+    {slug:'project',    nav:'โครงการ',          dgName:'โครงการ',         role:'found'},
+    {slug:'fillresult', nav:'กรอกผลดำเนินงาน',   dgName:'กรอกผล',          role:'core'},
+    {slug:'track',      nav:'ติดตาม & รายงาน',   dgName:'ติดตาม · ผลลัพธ์', role:'core'}
+  ];
+  var BY_SLUG = {};
+  MODULES.forEach(function(m,i){ m.id='m'+i; m.num='M'+i; BY_SLUG[m.slug]=m; });
+
+  // ── Mini-cycle: geometry keyed by stable slug; code/role derived from MODULES ──
+  var MINI_ORDER = ['changereq','login','readpa','fillresult','track','project'];
+  var MINI_GEO = {
+    changereq:  {cx:98, w:44, y:4,  h:20},
+    login:      {cx:27, w:42, y:38, h:22},
+    readpa:     {cx:98, w:44, y:38, h:22},
+    fillresult: {cx:172,w:44, y:38, h:22},
+    track:      {cx:246,w:44, y:38, h:22},
+    project:    {cx:172,w:44, y:80, h:22}
+  };
+  function miniPill(n){
     var x=n.cx-n.w/2;
-    var pc='mc-pill'+(n.cls==='branch'?' mc-pill--branch':'')+(isAct?' mc-pill--active':'');
-    var cc='mc-code'+(isAct?' mc-code--active':'');
+    var pc='mc-pill'+(n.cls==='branch'?' mc-pill--branch':'')+(n.isAct?' mc-pill--active':'');
+    var cc='mc-code'+(n.isAct?' mc-code--active':'');
     var ty=n.y+n.h/2+4;
     return '<rect class="'+pc+'" x="'+x+'" y="'+n.y+'" width="'+n.w+'" height="'+n.h+'" rx="4"/>'+
            '<text class="'+cc+'" x="'+n.cx+'" y="'+ty+'" text-anchor="middle">'+n.code+'</text>';
   }
   function miniSVG(active){
-    var nodes=[
-      {id:'m2',cx:98,w:44,y:4,h:20,code:'M2',cls:'branch'},
-      {id:'m0',cx:27,w:42,y:38,h:22,code:'M0',cls:'core'},
-      {id:'m1',cx:98,w:44,y:38,h:22,code:'M1',cls:'core'},
-      {id:'m4',cx:172,w:44,y:38,h:22,code:'M4',cls:'core'},
-      {id:'m5',cx:246,w:44,y:38,h:22,code:'M5',cls:'core'},
-      {id:'m3',cx:172,w:44,y:80,h:22,code:'M3',cls:'found'}
-    ];
     var s='<svg viewBox="0 0 300 124" role="img" aria-label="ตำแหน่งในวงจร">';
     s+='<line class="mc-arrow" x1="48" y1="49" x2="74" y2="49" marker-end="url(#mah)"/>';
     s+='<line class="mc-arrow" x1="120" y1="49" x2="148" y2="49" marker-end="url(#mah)"/>';
@@ -902,13 +923,95 @@ figure.shot figcaption{font-size:12.5px; color:var(--ink-muted); padding:7px 12p
     s+='<line class="mc-arrow" x1="172" y1="80" x2="172" y2="62" marker-end="url(#mah)"/>';
     s+='<line class="mc-arrow--branch" x1="98" y1="24" x2="98" y2="36" marker-end="url(#mahb)"/>';
     s+='<path class="mc-loop" d="M246,60 L246,110 Q246,116 240,116 L104,116 Q98,116 98,110 L98,60" marker-end="url(#mah)"/>';
-    nodes.forEach(function(n){ s+=pill(n,active); });
+    MINI_ORDER.forEach(function(slug){
+      var m=BY_SLUG[slug], g=MINI_GEO[slug];
+      s+=miniPill({cx:g.cx,w:g.w,y:g.y,h:g.h,code:m.num,cls:m.role,isAct:(m.id===active)});
+    });
     s+='</svg>';
     return s;
   }
   Array.prototype.slice.call(document.querySelectorAll('.cycle-mini')).forEach(function(el){
     el.innerHTML=miniSVG(el.getAttribute('data-active'));
   });
+
+  // ── Dev-only consistency self-check (silent in production) ────────────────────
+  //  Element-anchored ONLY — never scans prose for "Mx" (M1–M12 are also month
+  //  codes, e.g. "M9 (มิ.ย.)"). Runs only on localhost / file:.
+  function isDev(){
+    var h=location.hostname;
+    return location.protocol==='file:' || h==='localhost' || h==='127.0.0.1' || h==='';
+  }
+  function selfCheck(){
+    var errs=[];
+    function eq(label,got,want){ if(String(got)!==String(want)) errs.push(label+' — ได้ "'+got+'" ควร "'+want+'"'); }
+    function need(label,txt,frag){ if((txt||'').indexOf(frag)<0) errs.push(label+' — ขาด "'+frag+'"'); }
+
+    // nav: order, num, label, dot
+    var nav=document.querySelectorAll('#nav a[href^="#m"]');
+    if(nav.length!==MODULES.length) errs.push('nav: มี '+nav.length+' ลิงก์ ควร '+MODULES.length);
+    MODULES.forEach(function(m,i){
+      var a=nav[i]; if(!a) return;
+      eq('nav['+i+'] href', a.getAttribute('href'), '#'+m.id);
+      var num=a.querySelector('.num'); if(num) eq('nav['+i+'] .num', num.textContent, m.num);
+      var dot=a.querySelector('.dot'); if(dot) eq('nav['+i+'] data-cp-dot', dot.getAttribute('data-cp-dot'), m.id);
+      var sp=a.querySelectorAll('span');
+      for(var k=0;k<sp.length;k++){ if(!sp[k].className){ eq('nav['+i+'] label', sp[k].textContent, m.nav); break; } }
+    });
+
+    // sections: document order + per-section keyed attrs
+    var secs=document.querySelectorAll('section[id^="m"]');
+    if(secs.length!==MODULES.length) errs.push('section: มี '+secs.length+' ควร '+MODULES.length);
+    MODULES.forEach(function(m,i){
+      var sec=secs[i]; if(!sec) return;
+      eq('section['+i+'] id', sec.id, m.id);
+      var mn=sec.querySelector('.mod-num'); if(mn && mn.textContent.indexOf(m.num)!==0) errs.push('section '+m.id+' mod-num "'+mn.textContent+'" ไม่ขึ้นต้น '+m.num);
+      var cp=sec.querySelector('[data-cp]'); if(cp) eq(m.id+' data-cp', cp.getAttribute('data-cp'), m.id);
+      var ca=sec.querySelector('[data-active]'); if(ca) eq(m.id+' data-active', ca.getAttribute('data-active'), m.id);
+      var qz=sec.querySelector('[data-quiz]'); if(qz) eq(m.id+' data-quiz', qz.getAttribute('data-quiz'), m.id);
+    });
+
+    // pager chain (prev/next hrefs + visible num/label)
+    MODULES.forEach(function(m,i){
+      var sec=document.getElementById(m.id); if(!sec) return;
+      var links=sec.querySelectorAll('.pager a'); if(links.length<2) return;
+      var prev=links[0], next=links[links.length-1];
+      if(i>0){ var p=MODULES[i-1]; eq(m.id+' pager-prev href', prev.getAttribute('href'), '#'+p.id); need(m.id+' pager-prev', prev.textContent, p.num); }
+      if(i<MODULES.length-1){ var nx=MODULES[i+1]; eq(m.id+' pager-next href', next.getAttribute('href'), '#'+nx.id); need(m.id+' pager-next', next.textContent, nx.num); need(m.id+' pager-next', next.textContent, nx.nav); }
+    });
+
+    // big diagram codes (data-slug hooks → num)
+    Array.prototype.slice.call(document.querySelectorAll('.diagram [data-slug]')).forEach(function(t){
+      var m=BY_SLUG[t.getAttribute('data-slug')]; if(m) eq('diagram '+t.getAttribute('data-slug'), t.textContent, m.num);
+    });
+
+    // figcaption inline refs (computed fragment — prose untouched)
+    var cap=document.querySelector('.diagram .dg-cap');
+    if(cap){ need('figcaption', cap.textContent, BY_SLUG.project.dgName+' ('+BY_SLUG.project.num+')');
+             need('figcaption', cap.textContent, BY_SLUG.changereq.dgName+' ('+BY_SLUG.changereq.num+')'); }
+
+    // safety signpost (inside the fillresult section): self-ref + cross-link to project
+    var fsec=document.getElementById(BY_SLUG.fillresult.id);
+    if(fsec){ var sf=fsec.querySelector('.safety');
+      if(sf){ need('safety self-ref', sf.textContent, '('+BY_SLUG.fillresult.num+')');
+        var sa=sf.querySelector('a'); if(sa){ eq('safety link href', sa.getAttribute('href'), '#'+BY_SLUG.project.id); need('safety link', sa.textContent, BY_SLUG.project.num+' · '+BY_SLUG.project.dgName); } } }
+
+    // inline prose cross-refs (scoped by current section id; computed fragments)
+    var crSec=document.getElementById(BY_SLUG.changereq.id);
+    if(crSec) need('changereq prose', crSec.textContent, 'ทบทวน PA จาก '+BY_SLUG.readpa.num);
+    var pjSec=document.getElementById(BY_SLUG.project.id);
+    if(pjSec){ need('project cap', pjSec.textContent, 'ที่กรอกใน '+BY_SLUG.fillresult.num);
+               need('project note', pjSec.textContent, 'ต่างจาก '+BY_SLUG.fillresult.num); }
+
+    if(errs.length){
+      try{ console.error('[PA self-check] '+errs.length+' ปัญหา:\n- '+errs.join('\n- ')); }catch(e){}
+      var bar=document.createElement('div');
+      bar.setAttribute('data-selfcheck','');
+      bar.style.cssText='position:fixed;top:0;left:0;right:0;z-index:99999;background:#b91c1c;color:#fff;font:13px/1.5 ui-monospace,monospace;padding:10px 14px;max-height:45vh;overflow:auto;box-shadow:0 2px 8px rgba(0,0,0,.35)';
+      bar.textContent='⚠ SSOT self-check พบ '+errs.length+' ปัญหา (MODULES ≠ static HTML) — '+errs.join('  ·  ');
+      document.body.appendChild(bar);
+    }
+  }
+  if(isDev()){ try{ selfCheck(); }catch(e){ try{ console.error('[PA self-check] error', e); }catch(_){} } }
 })();
 </script>
 </body>

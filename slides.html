@@ -146,29 +146,29 @@ ul.agenda .code{display:inline-block; min-width:clamp(48px,5vw,76px); font-weigh
         <text class="cs-tag--muted" x="214" y="60" text-anchor="middle">เมื่อมีเหตุ</text>
         <line class="cs-arrow--branch" x1="214" y1="112" x2="214" y2="150" marker-end="url(#csah)"/>
         <rect class="cs-box cs-box--branch" x="139" y="70" width="150" height="42" rx="4"/>
-        <text class="cs-code" x="214" y="88" text-anchor="middle">M2</text>
+        <text class="cs-code" data-slug="changereq" x="214" y="88" text-anchor="middle">M2</text>
         <text class="cs-name cs-name--branch" x="214" y="105" text-anchor="middle">ขอเปลี่ยน PA</text>
         <line class="cs-arrow" x1="112" y1="177" x2="150" y2="177" marker-end="url(#csah)"/>
         <line class="cs-arrow" x1="278" y1="177" x2="312" y2="177" marker-end="url(#csah)"/>
         <line class="cs-arrow" x1="440" y1="177" x2="474" y2="177" marker-end="url(#csah)"/>
         <rect class="cs-box" x="8" y="150" width="104" height="54" rx="4"/>
-        <text class="cs-code" x="60" y="172" text-anchor="middle">M0</text>
+        <text class="cs-code" data-slug="login" x="60" y="172" text-anchor="middle">M0</text>
         <text class="cs-name" x="60" y="190" text-anchor="middle">เข้าสู่ระบบ</text>
         <rect class="cs-box" x="150" y="150" width="128" height="54" rx="4"/>
-        <text class="cs-code" x="214" y="172" text-anchor="middle">M1</text>
+        <text class="cs-code" data-slug="readpa" x="214" y="172" text-anchor="middle">M1</text>
         <text class="cs-name" x="214" y="190" text-anchor="middle">อ่าน PA</text>
         <rect class="cs-box" x="312" y="150" width="128" height="54" rx="4"/>
-        <text class="cs-code" x="376" y="172" text-anchor="middle">M4</text>
+        <text class="cs-code" data-slug="fillresult" x="376" y="172" text-anchor="middle">M4</text>
         <text class="cs-name" x="376" y="190" text-anchor="middle">กรอกผล</text>
         <rect class="cs-box" x="474" y="150" width="176" height="54" rx="4"/>
-        <text class="cs-code" x="562" y="172" text-anchor="middle">M5</text>
+        <text class="cs-code" data-slug="track" x="562" y="172" text-anchor="middle">M5</text>
         <text class="cs-name" x="562" y="190" text-anchor="middle">ติดตาม · ผลลัพธ์</text>
         <path class="cs-loop" d="M562,204 L562,300 Q562,316 546,316 L230,316 Q214,316 214,300 L214,204" marker-end="url(#csah)"/>
         <text class="cs-tag" x="388" y="340" text-anchor="middle">ทำทุกรอบ</text>
         <line class="cs-arrow" x1="376" y1="240" x2="376" y2="204" marker-end="url(#csah)"/>
         <text class="cs-tag" x="392" y="230" text-anchor="start">ป้อนผลที่กรอก</text>
         <rect class="cs-box cs-box--found" x="300" y="240" width="152" height="56" rx="4"/>
-        <text class="cs-code" x="376" y="266" text-anchor="middle">M3</text>
+        <text class="cs-code" data-slug="project" x="376" y="266" text-anchor="middle">M3</text>
         <text class="cs-name" x="376" y="284" text-anchor="middle">โครงการ</text>
       </svg>
     </div>
@@ -187,7 +187,7 @@ ul.agenda .code{display:inline-block; min-width:clamp(48px,5vw,76px); font-weigh
   </section>
 
   <!-- 4 · M0 -->
-  <section class="slide">
+  <section class="slide" data-slug="login">
     <p class="eyebrow">M0</p>
     <h2>เข้าสู่ระบบ</h2>
     <ul class="points">
@@ -198,7 +198,7 @@ ul.agenda .code{display:inline-block; min-width:clamp(48px,5vw,76px); font-weigh
   </section>
 
   <!-- 5 · M1 -->
-  <section class="slide">
+  <section class="slide" data-slug="readpa">
     <p class="eyebrow">M1</p>
     <h2>อ่าน PA ของหน่วยงาน</h2>
     <ul class="points">
@@ -208,7 +208,7 @@ ul.agenda .code{display:inline-block; min-width:clamp(48px,5vw,76px); font-weigh
   </section>
 
   <!-- 6 · M2 -->
-  <section class="slide">
+  <section class="slide" data-slug="changereq">
     <p class="eyebrow">M2</p>
     <h2>คำขอเปลี่ยนแปลง PA</h2>
     <ul class="points">
@@ -219,7 +219,7 @@ ul.agenda .code{display:inline-block; min-width:clamp(48px,5vw,76px); font-weigh
   </section>
 
   <!-- 7 · M3 -->
-  <section class="slide">
+  <section class="slide" data-slug="project">
     <p class="eyebrow">M3</p>
     <h2>โครงการ</h2>
     <ul class="points">
@@ -230,7 +230,7 @@ ul.agenda .code{display:inline-block; min-width:clamp(48px,5vw,76px); font-weigh
   </section>
 
   <!-- 8 · M4 · โมดูลหลัก -->
-  <section class="slide">
+  <section class="slide" data-slug="fillresult">
     <p class="eyebrow">M4 · โมดูลหลัก</p>
     <h2>กรอกผลดำเนินงาน</h2>
     <ul class="points">
@@ -241,7 +241,7 @@ ul.agenda .code{display:inline-block; min-width:clamp(48px,5vw,76px); font-weigh
   </section>
 
   <!-- 9 · M5 -->
-  <section class="slide">
+  <section class="slide" data-slug="track">
     <p class="eyebrow">M5</p>
     <h2>ติดตามสถานะ &amp; รายงาน</h2>
     <ul class="points">
@@ -339,6 +339,67 @@ ul.agenda .code{display:inline-block; min-width:clamp(48px,5vw,76px); font-weigh
   // init from hash (deep link)
   var start=parseInt(location.hash.slice(1),10);
   show(isNaN(start)?0:start-1);
+})();
+</script>
+<script>
+(function(){
+  // ── Module-identity SSOT self-check for the slide deck ──────────────────────
+  //  Mirrors index.html's MODULES order. Verifies agenda codes+labels, recap
+  //  diagram codes (data-slug hooks), per-slide eyebrows, and slide ORDER.
+  //  Element-anchored only (never scans prose — "M9" can be a month). Dev-only.
+  var MODULES = [
+    {slug:'login',      agenda:'เข้าสู่ระบบ'},
+    {slug:'readpa',     agenda:'อ่าน PA ของหน่วยงาน'},
+    {slug:'changereq',  agenda:'คำขอเปลี่ยนแปลง PA'},
+    {slug:'project',    agenda:'โครงการ'},
+    {slug:'fillresult', agenda:'กรอกผลดำเนินงาน'},
+    {slug:'track',      agenda:'ติดตามสถานะ & รายงาน'}
+  ];
+  var BY={};
+  MODULES.forEach(function(m,i){ m.num='M'+i; BY[m.slug]=m; });
+
+  function isDev(){
+    var h=location.hostname;
+    return location.protocol==='file:' || h==='localhost' || h==='127.0.0.1' || h==='';
+  }
+  function selfCheck(){
+    var errs=[];
+    function eq(label,got,want){ if(String(got)!==String(want)) errs.push(label+' — ได้ "'+got+'" ควร "'+want+'"'); }
+    function need(label,txt,frag){ if((txt||'').indexOf(frag)<0) errs.push(label+' — ขาด "'+frag+'"'); }
+
+    // agenda list: code + label, in order
+    var ag=document.querySelectorAll('.agenda li');
+    if(ag.length!==MODULES.length) errs.push('agenda: มี '+ag.length+' ควร '+MODULES.length);
+    MODULES.forEach(function(m,i){
+      var li=ag[i]; if(!li) return;
+      var c=li.querySelector('.code'); if(c) eq('agenda['+i+'] code', c.textContent, m.num);
+      need('agenda['+i+'] label', li.textContent, m.agenda);
+    });
+
+    // recap diagram codes (data-slug hooks → num)
+    Array.prototype.slice.call(document.querySelectorAll('.cs-code[data-slug]')).forEach(function(t){
+      var m=BY[t.getAttribute('data-slug')]; if(m) eq('recap '+t.getAttribute('data-slug'), t.textContent, m.num);
+    });
+
+    // module slides: ORDER + eyebrow num
+    var slides=document.querySelectorAll('section.slide[data-slug]');
+    if(slides.length!==MODULES.length) errs.push('module slides: มี '+slides.length+' ควร '+MODULES.length);
+    MODULES.forEach(function(m,i){
+      var s=slides[i]; if(!s) return;
+      eq('slide['+i+'] order', s.getAttribute('data-slug'), m.slug);
+      var ey=s.querySelector('.eyebrow'); if(ey && ey.textContent.indexOf(m.num)!==0) errs.push('slide '+m.slug+' eyebrow "'+ey.textContent+'" ไม่ขึ้นต้น '+m.num);
+    });
+
+    if(errs.length){
+      try{ console.error('[PA slides self-check] '+errs.length+' ปัญหา:\n- '+errs.join('\n- ')); }catch(e){}
+      var bar=document.createElement('div');
+      bar.setAttribute('data-selfcheck','');
+      bar.style.cssText='position:fixed;top:0;left:0;right:0;z-index:99999;background:#b91c1c;color:#fff;font:13px/1.5 ui-monospace,monospace;padding:10px 14px;max-height:45vh;overflow:auto';
+      bar.textContent='⚠ slides SSOT self-check พบ '+errs.length+' ปัญหา — '+errs.join('  ·  ');
+      document.body.appendChild(bar);
+    }
+  }
+  if(isDev()){ try{ selfCheck(); }catch(e){ try{ console.error('[PA slides self-check] error', e); }catch(_){} } }
 })();
 </script>
 </body>
