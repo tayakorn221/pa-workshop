@@ -235,9 +235,57 @@ figure.shot figcaption{font-size:12.5px; color:var(--ink-muted); padding:7px 12p
   .quiz{padding:16px 16px}
   .faq summary{font-size:15.5px}
 }
+
+/* ===== big-picture: cycle diagram + why + mini-cycle + checklist ===== */
+.diagram{margin:22px 0 6px}
+.diagram svg{display:block;width:100%;height:auto;max-width:660px;margin:0 auto}
+.diagram text,.cycle-mini text{font-family:'IBM Plex Sans Thai','Sarabun','Tahoma',sans-serif}
+.dg-box{fill:#fff;stroke:var(--navy);stroke-width:1.6}
+.dg-box--branch{stroke-dasharray:4 3;stroke-width:1.3}
+.dg-box--found{fill:var(--bg-raise);stroke:var(--navy);stroke-width:1.9}
+.dg-code{fill:var(--orange);font-size:12px;font-weight:700;letter-spacing:.03em}
+.dg-name{fill:var(--ink);font-size:14px;font-weight:600}
+.dg-name--branch{fill:var(--ink-muted)}
+.dg-arrow{stroke:var(--navy);stroke-width:1.6;fill:none}
+.dg-arrow--branch{stroke:var(--navy);stroke-width:1.2;stroke-dasharray:4 3;fill:none}
+.dg-loop{stroke:var(--navy);stroke-width:1.6;fill:none}
+.dg-tag{fill:var(--orange);font-size:13px;font-weight:600}
+.dg-tag--muted{fill:var(--ink-muted);font-size:12.5px;font-weight:600}
+.dg-cap{font-size:14px;color:var(--ink-muted);text-align:center;max-width:600px;margin:8px auto 0}
+.why{border-left:3px solid var(--navy);padding:2px 0 2px 16px;margin:6px 0 0;font-size:16.5px;color:var(--ink)}
+.why p{margin:0 0 .6em}
+.why p:last-child{margin-bottom:0}
+.cycle-mini-wrap{display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin:14px 0 22px;padding:12px 16px;border:1px solid var(--rule);border-left:3px solid var(--navy);background:#fff}
+.cycle-mini{flex:none}
+.cycle-mini svg{display:block;width:280px;height:auto}
+.cycle-mini-cap{margin:0;font-size:14px;color:var(--ink-muted);flex:1;min-width:200px}
+.cycle-mini-cap b{color:var(--navy);font-weight:600}
+.mc-pill{fill:#fff;stroke:var(--rule);stroke-width:1.3}
+.mc-pill--branch{stroke-dasharray:3 2}
+.mc-pill--active{stroke:var(--navy);stroke-width:1.7}
+.mc-code{fill:#9AA6B2;font-size:11px;font-weight:700}
+.mc-code--active{fill:var(--orange)}
+.mc-arrow{stroke:#9AA6B2;stroke-width:1.2;fill:none}
+.mc-loop{stroke:#C9D0D8;stroke-width:1.2;fill:none}
+.mc-arrow--branch{stroke:#C9D0D8;stroke-width:1.1;stroke-dasharray:3 2;fill:none}
+.cycle-checklist{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--rule);margin:14px 0 8px}
+.cycle-checklist .phase{padding:16px 18px;border-right:1px solid var(--rule)}
+.cycle-checklist .phase:last-child{border-right:none}
+.ph-when{display:inline-block;font-size:12.5px;font-weight:700;letter-spacing:.04em;color:var(--orange);text-transform:uppercase;margin-bottom:8px}
+.cycle-checklist ul{list-style:none;margin:0;padding:0}
+.cycle-checklist li{position:relative;padding:5px 0 5px 20px;font-size:14.5px;line-height:1.55;border-top:1px solid #EEF1F4}
+.cycle-checklist li:first-child{border-top:none}
+.cycle-checklist li::before{content:'\2713';position:absolute;left:0;top:5px;color:var(--navy);font-weight:700;font-size:13px}
+@media (max-width:680px){
+  .cycle-checklist{grid-template-columns:1fr}
+  .cycle-checklist .phase{border-right:none;border-bottom:1px solid var(--rule)}
+  .cycle-checklist .phase:last-child{border-bottom:none}
+  .cycle-mini svg{width:100%;max-width:300px}
+}
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><marker id="ah" markerWidth="9" markerHeight="9" refX="6.5" refY="3.2" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L7,3.2 L0,6.4 Z" fill="#1E3A5F"/></marker><marker id="mah" markerWidth="7" markerHeight="7" refX="5" refY="2.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L5.5,2.5 L0,5 Z" fill="#9AA6B2"/></marker><marker id="mahb" markerWidth="7" markerHeight="7" refX="5" refY="2.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L5.5,2.5 L0,5 Z" fill="#C9D0D8"/></marker></defs></svg>
 <div class="shell">
 
   <aside class="sidebar" id="sidebar">
@@ -283,20 +331,51 @@ figure.shot figcaption{font-size:12.5px; color:var(--ink-muted); padding:7px 12p
       <section id="open">
         <div class="mod-head">
           <div class="mod-num">เปิด</div>
-          <h2>ระบบ PA คืออะไร และสิ่งที่จะได้เรียนรู้</h2>
+          <h2>ระบบ PA คืออะไร และทุกส่วนต่อกันอย่างไร</h2>
           <div class="mod-meta"><span class="mod-time">10 นาที</span></div>
         </div>
         <p class="lead"><strong class="lbl">PA</strong> (Performance Agreement · ข้อตกลงการปฏิบัติงาน) คือระบบติดตามผลการดำเนินงานของหน่วยงานตาม <strong class="lbl">PA</strong> ที่รับผิดชอบในแต่ละปีงบประมาณ — PA ของแต่ละหน่วยงานคือชุดตัวชี้วัดที่มีเป้าหมายและน้ำหนัก บทบาทของคุณคือ <strong class="lbl">requester</strong> ผู้กรอกผลดำเนินงานของหน่วยงานตนเอง การฝึกทั้งหมดในวันนี้ดำเนินการบนระบบทดสอบ (UAT) ที่ <code>uat-pa.vercel.app</code></p>
 
-        <p class="kicker">สิ่งที่จะได้เรียนรู้และลงมือทำ</p>
-        <ul class="plain">
-          <li><strong class="lbl">M0 · เข้าสู่ระบบ</strong> — login ด้วยอีเมล มจธ. และตั้งหรือรีเซ็ตรหัสผ่านได้ด้วยตนเอง</li>
-          <li><strong class="lbl">M1 · อ่าน PA ของหน่วยงาน</strong> — รู้ว่ามีตัวชี้วัดอะไร เป้าหมายเท่าไร น้ำหนักเท่าไร ตัวไหนยังไม่กรอก</li>
-          <li><strong class="lbl">M2 · คำขอเปลี่ยนแปลง PA</strong> — ขอแก้เป้าหมาย / น้ำหนัก / เพิ่ม-ลบตัวชี้วัด แล้วติดตามสถานะคำขอ</li>
-          <li><strong class="lbl">M3 · กรอกผลดำเนินงาน</strong> ⭐ — กรอกผลรายรอบแล้วบันทึกร่าง (โมดูลหลักของวันนี้)</li>
-          <li><strong class="lbl">M4 · โครงการ / แผนปฏิบัติการ</strong> — รู้จัก wizard สร้างโครงการ 7 ขั้น</li>
-          <li><strong class="lbl">M5 · ติดตามสถานะ &amp; รายงาน</strong> — อ่านสถานะ + ผลลัพธ์ (ไฟเขียว/เหลือง/แดง) และรู้ว่าผลแบบไหนเข้ารายงาน</li>
-        </ul>
+        <p>โมดูล M0–M5 ทั้งหมดไม่ได้แยกกัน แต่ต่อกันเป็น <strong class="lbl">วงจรเดียว</strong> — อ่านภาพนี้เป็นแผนที่ไปแต่ละโมดูลได้</p>
+
+        <figure class="diagram">
+          <svg viewBox="0 0 720 360" role="img" aria-label="แผนภาพวงจร PA: เข้าสู่ระบบ แล้ววนทำอ่าน PA กรอกผล ติดตาม ทุกรอบ โดยมีโครงการเป็นฐานป้อนผลที่กรอก และคำขอเปลี่ยน PA เป็นสาขาเมื่อมีเหตุ">
+            <text class="dg-tag--muted" x="214" y="60" text-anchor="middle">เมื่อมีเหตุ</text>
+            <line class="dg-arrow--branch" x1="214" y1="112" x2="214" y2="150" marker-end="url(#ah)"/>
+            <rect class="dg-box dg-box--branch" x="139" y="70" width="150" height="42" rx="4"/>
+            <text class="dg-code" x="214" y="88" text-anchor="middle">M2</text>
+            <text class="dg-name dg-name--branch" x="214" y="105" text-anchor="middle">ขอเปลี่ยน PA</text>
+            <line class="dg-arrow" x1="112" y1="177" x2="150" y2="177" marker-end="url(#ah)"/>
+            <line class="dg-arrow" x1="278" y1="177" x2="312" y2="177" marker-end="url(#ah)"/>
+            <line class="dg-arrow" x1="440" y1="177" x2="474" y2="177" marker-end="url(#ah)"/>
+            <rect class="dg-box" x="8" y="150" width="104" height="54" rx="4"/>
+            <text class="dg-code" x="60" y="172" text-anchor="middle">M0</text>
+            <text class="dg-name" x="60" y="190" text-anchor="middle">เข้าสู่ระบบ</text>
+            <rect class="dg-box" x="150" y="150" width="128" height="54" rx="4"/>
+            <text class="dg-code" x="214" y="172" text-anchor="middle">M1</text>
+            <text class="dg-name" x="214" y="190" text-anchor="middle">อ่าน PA</text>
+            <rect class="dg-box" x="312" y="150" width="128" height="54" rx="4"/>
+            <text class="dg-code" x="376" y="172" text-anchor="middle">M3</text>
+            <text class="dg-name" x="376" y="190" text-anchor="middle">กรอกผล</text>
+            <rect class="dg-box" x="474" y="150" width="176" height="54" rx="4"/>
+            <text class="dg-code" x="562" y="172" text-anchor="middle">M5</text>
+            <text class="dg-name" x="562" y="190" text-anchor="middle">ติดตาม · ผลลัพธ์</text>
+            <path class="dg-loop" d="M562,204 L562,300 Q562,316 546,316 L230,316 Q214,316 214,300 L214,204" marker-end="url(#ah)"/>
+            <text class="dg-tag" x="388" y="340" text-anchor="middle">ทำทุกรอบ</text>
+            <line class="dg-arrow" x1="376" y1="240" x2="376" y2="204" marker-end="url(#ah)"/>
+            <text class="dg-tag" x="392" y="230" text-anchor="start">ป้อนผลที่กรอก</text>
+            <rect class="dg-box dg-box--found" x="300" y="240" width="152" height="56" rx="4"/>
+            <text class="dg-code" x="376" y="266" text-anchor="middle">M4</text>
+            <text class="dg-name" x="376" y="284" text-anchor="middle">โครงการ</text>
+          </svg>
+          <figcaption class="dg-cap">วงกลาง <strong class="lbl">อ่าน PA → กรอกผล → ติดตาม</strong> คือสิ่งที่ทำทุกรอบ · <strong class="lbl">โครงการ (M4)</strong> คืองานที่ทำให้ตัวชี้วัดบรรลุเป้า — เป็นที่มาของผลที่กรอก · <strong class="lbl">ขอเปลี่ยน PA (M2)</strong> ทำเมื่อมีเหตุเท่านั้น</figcaption>
+        </figure>
+
+        <p class="kicker">ทำไมต้องทำให้ครบวงจร</p>
+        <div class="why">
+          <p>PA คือภาพสะท้อนผลงานของหน่วยงานต่อมหาวิทยาลัยในแต่ละปีงบประมาณ การกรอกผลให้ตรงรอบจึงไม่ใช่แค่งานเอกสาร แต่คือการทำให้ <strong class="lbl">ผลลัพธ์</strong> ของหน่วยงานสะท้อนความจริง</p>
+          <p>เมื่อกรอกตรงเวลา ผลจะเข้ารายงานทันรอบ หน่วยงานเห็นสถานะของตนเองได้ชัด และปรับแผนได้ทันก่อนสิ้นปี — ยิ่งวงจรนี้เดินสม่ำเสมอ ภาพรวมของหน่วยงานก็ยิ่งแม่นและใช้ตัดสินใจได้จริง</p>
+        </div>
 
         <p>สรุป 3 ขั้นตอนสำคัญที่ควรจดจำ: <strong class="lbl">เข้าสู่ระบบ → เปิดดู PA → กรอกผล + บันทึกร่าง</strong></p>
 
@@ -309,6 +388,10 @@ figure.shot figcaption{font-size:12.5px; color:var(--ink-muted); padding:7px 12p
           <div class="mod-num">M0</div>
           <h2>เข้าสู่ระบบ</h2>
           <div class="mod-meta"><span class="mod-time">15 นาที</span><span class="mode-tag muted">ข้ามได้</span></div>
+        </div>
+        <div class="cycle-mini-wrap">
+          <div class="cycle-mini" data-active="m0"></div>
+          <p class="cycle-mini-cap"><b>ก่อนเข้าวงจร</b> — เข้าสู่ระบบครั้งเดียว แล้วใช้งานทุกส่วนได้ตลอดทั้งปี</p>
         </div>
         <p class="lead"><strong class="lbl">เป้าหมาย:</strong> เข้าสู่ระบบและตั้งรหัสผ่านครั้งแรกได้ด้วยตนเอง</p>
         <p>เข้าระบบด้วยอีเมล มจธ. — ผู้ใช้ใหม่จะได้รับอีเมลคำเชิญเพื่อตั้งรหัสผ่าน ส่วนผู้ที่ลืมรหัสผ่านสามารถขอใหม่ได้</p>
@@ -335,6 +418,10 @@ figure.shot figcaption{font-size:12.5px; color:var(--ink-muted); padding:7px 12p
           <div class="mod-num">M1</div>
           <h2>อ่าน PA ของหน่วยงาน</h2>
           <div class="mod-meta"><span class="mod-time">25 นาที</span><span class="mode-tag">อ่าน</span></div>
+        </div>
+        <div class="cycle-mini-wrap">
+          <div class="cycle-mini" data-active="m1"></div>
+          <p class="cycle-mini-cap"><b>ต้นวงจร</b> — ทุกครั้งก่อนกรอก เปิดดูว่ามีตัวชี้วัดอะไร เป้าหมายเท่าไร น้ำหนักเท่าไร</p>
         </div>
         <p class="lead"><strong class="lbl">เป้าหมาย:</strong> อ่าน PA ของหน่วยงานได้ — ทราบว่ามีตัวชี้วัดใดบ้าง เป้าหมายเท่าไร น้ำหนักเท่าไร และรายการใดยังไม่ได้กรอก</p>
         <p><strong class="lbl">แนวคิด:</strong> <strong class="lbl">PA</strong> ของหน่วยงานคือชุดของหลาย <strong class="lbl">ตัวชี้วัด</strong> — แต่ละตัวมี <strong class="lbl">เป้าหมาย</strong> และ <strong class="lbl">น้ำหนัก</strong> (รวมทุกตัว = 100%) ผลที่กรอกจะถูกแปลเป็น <strong class="lbl">ผลลัพธ์</strong> (ไฟเขียว/เหลือง/แดง) และมี <strong class="lbl">สถานะ</strong> ของการทำงานกำกับ</p>
@@ -373,6 +460,10 @@ figure.shot figcaption{font-size:12.5px; color:var(--ink-muted); padding:7px 12p
           <h2>คำขอเปลี่ยนแปลง PA</h2>
           <div class="mod-meta"><span class="mod-time">25 นาที</span><span class="mode-tag warn">ส่งจริงรอบนี้</span></div>
         </div>
+        <div class="cycle-mini-wrap">
+          <div class="cycle-mini" data-active="m2"></div>
+          <p class="cycle-mini-cap"><b>สาขา เมื่อมีเหตุ</b> — ใช้เมื่อต้องแก้เป้าหมาย/น้ำหนัก หรือเพิ่ม-ลบตัวชี้วัด ไม่ได้ทำทุกรอบ</p>
+        </div>
         <p class="lead"><strong class="lbl">เป้าหมาย:</strong> ปรับ PA ของหน่วยงานให้ถูกต้องได้ — เปลี่ยนเป้าหมาย / น้ำหนัก / เพิ่ม-ลบตัวชี้วัด แล้วติดตามสถานะคำขอ</p>
         <p><strong class="lbl">แนวคิด:</strong> เมื่อต้องการแก้ไข PA ให้ส่ง "คำขอเปลี่ยนแปลง" — รอบนี้ช่วงอนุมัติอัตโนมัติเปิดอยู่ คำขอจึง <b>อนุมัติทันทีและมีผลกับ PA จริง</b> (โดยปกตินอกช่วงนี้ admin เป็นผู้อนุมัติ)</p>
 
@@ -408,6 +499,10 @@ figure.shot figcaption{font-size:12.5px; color:var(--ink-muted); padding:7px 12p
           <div class="mod-num">M3 ★ โมดูลหลัก</div>
           <h2>กรอกผลดำเนินงาน</h2>
           <div class="mod-meta"><span class="mod-time">45 นาที · ลงมือทำหลัก</span><span class="mode-tag">บันทึกร่างเท่านั้น</span></div>
+        </div>
+        <div class="cycle-mini-wrap">
+          <div class="cycle-mini" data-active="m3"></div>
+          <p class="cycle-mini-cap"><b>หัวใจของวงจร</b> — ใช้จริงทุกรอบรายงาน เมื่อต้องบันทึกผลของแต่ละตัวชี้วัด</p>
         </div>
         <p class="lead"><strong class="lbl">เป้าหมาย:</strong> กรอกผลรายรอบแล้ว <strong class="lbl">บันทึกร่าง</strong> ได้ด้วยตนเอง และเข้าใจความแตกต่างระหว่าง "ร่าง" กับ "ส่งรายงาน"</p>
         <p><strong class="lbl">แนวคิด:</strong> แต่ละตัวชี้วัดกรอกผลแยกตามรอบ (M1–M12 รายเดือน, H1/H2 รายครึ่งปี) วันนี้ใช้รอบ <strong class="lbl">M9 (มิ.ย.)</strong> โดยกรอกผลเป็นตัวเลข ระบบมีเพดานที่ <strong class="lbl">120%</strong> (กรอกเกิน 100% ได้ แต่คะแนนสูงสุดอยู่ที่ 120%)</p>
@@ -455,6 +550,10 @@ figure.shot figcaption{font-size:12.5px; color:var(--ink-muted); padding:7px 12p
           <h2>โครงการ / แผนปฏิบัติการ</h2>
           <div class="mod-meta"><span class="mod-time">35 นาที</span><span class="mode-tag">อย่ายืนยันส่ง</span></div>
         </div>
+        <div class="cycle-mini-wrap">
+          <div class="cycle-mini" data-active="m4"></div>
+          <p class="cycle-mini-cap"><b>ฐานของวงจร</b> — งาน/แผนปฏิบัติการที่ทำให้ตัวชี้วัดบรรลุเป้า เป็นที่มาของผลที่กรอกใน M3</p>
+        </div>
         <p class="lead"><strong class="lbl">เป้าหมาย:</strong> รู้จัก wizard สร้างโครงการ และเข้าใจว่าฉบับร่างปลอดภัย</p>
         <p><strong class="lbl">แนวคิด:</strong> โครงการผูกกับตัวชี้วัด กรอกผ่าน <strong class="lbl">wizard 7 ขั้น</strong> (กิจกรรมแสดงเป็นผังเวลา Gantt)</p>
 
@@ -499,6 +598,10 @@ figure.shot figcaption{font-size:12.5px; color:var(--ink-muted); padding:7px 12p
           <div class="mod-num">M5</div>
           <h2>ติดตามสถานะ &amp; รายงาน</h2>
           <div class="mod-meta"><span class="mod-time">15 นาที</span><span class="mode-tag">อ่าน</span></div>
+        </div>
+        <div class="cycle-mini-wrap">
+          <div class="cycle-mini" data-active="m5"></div>
+          <p class="cycle-mini-cap"><b>ปลายวงจร</b> — อ่านผลลัพธ์ + สถานะ แล้วรู้ว่าผลแบบไหนเข้ารายงาน ก่อนวนรอบถัดไป</p>
         </div>
         <p class="lead"><strong class="lbl">เป้าหมาย:</strong> อ่านสถานะได้ และทราบว่าผลแบบใดเข้ารายงาน</p>
         <p>เรื่องที่มักสับสนมากที่สุดคือ <b>ป้าย 2 กลุ่ม</b> — "สถานะ" (ขั้นตอนการทำงาน) กับ "ผลลัพธ์" (ไฟเขียว/เหลือง/แดง) เป็นคนละเรื่องกัน</p>
@@ -620,6 +723,33 @@ figure.shot figcaption{font-size:12.5px; color:var(--ink-muted); padding:7px 12p
           <div class="s"><span class="n">3</span><span><b>กรอกผล + บันทึกร่าง</b> — เลือกรอบ กรอกเลข แล้วบันทึกร่าง</span></div>
         </div>
 
+        <p class="kicker">นำกลับไปใช้ — แต่ละรอบทำอะไรบ้าง</p>
+        <div class="cycle-checklist">
+          <div class="phase">
+            <span class="ph-when">ต้นรอบ</span>
+            <ul>
+              <li>เข้าระบบ แล้วเปิดดู PA ของหน่วยงาน</li>
+              <li>ดูว่ารอบนี้มีตัวชี้วัดใดยังไม่ได้กรอก</li>
+            </ul>
+          </div>
+          <div class="phase">
+            <span class="ph-when">ระหว่างรอบ</span>
+            <ul>
+              <li>กรอกผลจริง พร้อมแนบหลักฐาน</li>
+              <li>บันทึกร่างไว้ก่อนได้ — แก้ไขได้</li>
+              <li>พร้อมแล้วจึงกด "ส่งรายงาน"</li>
+            </ul>
+          </div>
+          <div class="phase">
+            <span class="ph-when">ปลายรอบ</span>
+            <ul>
+              <li>ตรวจ <strong class="lbl">ผลลัพธ์</strong> และ <strong class="lbl">สถานะ</strong> ของแต่ละตัวชี้วัด</li>
+              <li>มีเหตุต้องแก้เป้า/น้ำหนัก → ส่งคำขอเปลี่ยน PA</li>
+              <li>ขึ้นรอบถัดไป — วนทำซ้ำ</li>
+            </ul>
+          </div>
+        </div>
+
         <p class="kicker">อภิธานศัพท์</p>
         <div class="glossary">
           <div class="row"><div class="term">ตัวชี้วัด</div><div class="def">สิ่งที่หน่วยงานต้องทำให้บรรลุ มีเป้าหมาย + น้ำหนัก (เดิมเรียก KR/KPI)</div></div>
@@ -728,6 +858,43 @@ figure.shot figcaption{font-size:12.5px; color:var(--ink-muted); padding:7px 12p
         if(fb) fb.hidden=false;
       });
     });
+  });
+})();
+</script>
+
+<script>
+(function(){
+  function pill(n,active){
+    var isAct=(n.id===active);
+    var x=n.cx-n.w/2;
+    var pc='mc-pill'+(n.cls==='branch'?' mc-pill--branch':'')+(isAct?' mc-pill--active':'');
+    var cc='mc-code'+(isAct?' mc-code--active':'');
+    var ty=n.y+n.h/2+4;
+    return '<rect class="'+pc+'" x="'+x+'" y="'+n.y+'" width="'+n.w+'" height="'+n.h+'" rx="4"/>'+
+           '<text class="'+cc+'" x="'+n.cx+'" y="'+ty+'" text-anchor="middle">'+n.code+'</text>';
+  }
+  function miniSVG(active){
+    var nodes=[
+      {id:'m2',cx:98,w:44,y:4,h:20,code:'M2',cls:'branch'},
+      {id:'m0',cx:27,w:42,y:38,h:22,code:'M0',cls:'core'},
+      {id:'m1',cx:98,w:44,y:38,h:22,code:'M1',cls:'core'},
+      {id:'m3',cx:172,w:44,y:38,h:22,code:'M3',cls:'core'},
+      {id:'m5',cx:246,w:44,y:38,h:22,code:'M5',cls:'core'},
+      {id:'m4',cx:172,w:44,y:80,h:22,code:'M4',cls:'found'}
+    ];
+    var s='<svg viewBox="0 0 300 124" role="img" aria-label="ตำแหน่งในวงจร">';
+    s+='<line class="mc-arrow" x1="48" y1="49" x2="74" y2="49" marker-end="url(#mah)"/>';
+    s+='<line class="mc-arrow" x1="120" y1="49" x2="148" y2="49" marker-end="url(#mah)"/>';
+    s+='<line class="mc-arrow" x1="194" y1="49" x2="222" y2="49" marker-end="url(#mah)"/>';
+    s+='<line class="mc-arrow" x1="172" y1="80" x2="172" y2="62" marker-end="url(#mah)"/>';
+    s+='<line class="mc-arrow--branch" x1="98" y1="24" x2="98" y2="36" marker-end="url(#mahb)"/>';
+    s+='<path class="mc-loop" d="M246,60 L246,110 Q246,116 240,116 L104,116 Q98,116 98,110 L98,60" marker-end="url(#mah)"/>';
+    nodes.forEach(function(n){ s+=pill(n,active); });
+    s+='</svg>';
+    return s;
+  }
+  Array.prototype.slice.call(document.querySelectorAll('.cycle-mini')).forEach(function(el){
+    el.innerHTML=miniSVG(el.getAttribute('data-active'));
   });
 })();
 </script>

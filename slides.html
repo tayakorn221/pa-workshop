@@ -92,6 +92,22 @@ ul.agenda .code{display:inline-block; min-width:clamp(48px,5vw,76px); font-weigh
   ul.points li::before{top:clamp(16px,2.6vh,24px)}
 }
 @media print{ .topbar,.hint{display:none} }
+
+/* big-picture cycle (recap slide) */
+.cycle-slide{display:flex; flex-direction:column; align-items:center}
+.cycle-slide svg{width:100%; max-width:760px; height:auto; margin-top:clamp(6px,1.4vh,16px)}
+.cycle-slide text{font-family:'IBM Plex Sans Thai','Sarabun','Tahoma',sans-serif}
+.cs-box{fill:#fff; stroke:var(--navy); stroke-width:1.6}
+.cs-box--branch{stroke-dasharray:4 3; stroke-width:1.3}
+.cs-box--found{fill:var(--bg-raise); stroke:var(--navy); stroke-width:1.9}
+.cs-code{fill:var(--orange); font-size:13px; font-weight:700}
+.cs-name{fill:var(--ink); font-size:15px; font-weight:600}
+.cs-name--branch{fill:var(--ink-muted)}
+.cs-arrow{stroke:var(--navy); stroke-width:1.6; fill:none}
+.cs-arrow--branch{stroke:var(--navy); stroke-width:1.2; stroke-dasharray:4 3; fill:none}
+.cs-loop{stroke:var(--navy); stroke-width:1.6; fill:none}
+.cs-tag{fill:var(--orange); font-size:13.5px; font-weight:600}
+.cs-tag--muted{fill:var(--ink-muted); font-size:13px; font-weight:600}
 </style>
 </head>
 <body>
@@ -118,6 +134,45 @@ ul.agenda .code{display:inline-block; min-width:clamp(48px,5vw,76px); font-weigh
       <li><span class="code">M4</span>โครงการ</li>
       <li><span class="code">M5</span>ติดตามสถานะ &amp; รายงาน</li>
     </ul>
+  </section>
+
+  <!-- 2b · ภาพใหญ่ · วงจร -->
+  <section class="slide">
+    <p class="eyebrow">ภาพใหญ่</p>
+    <h2>ทุกส่วนต่อกันเป็นวงจรเดียว</h2>
+    <div class="cycle-slide">
+      <svg viewBox="0 0 720 360" role="img" aria-label="แผนภาพวงจร PA: เข้าสู่ระบบ แล้ววนทำอ่าน PA กรอกผล ติดตาม ทุกรอบ โดยมีโครงการเป็นฐานป้อนผล และคำขอเปลี่ยน PA เป็นสาขาเมื่อมีเหตุ">
+        <defs><marker id="csah" markerWidth="9" markerHeight="9" refX="6.5" refY="3.2" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L7,3.2 L0,6.4 Z" fill="#1E3A5F"/></marker></defs>
+        <text class="cs-tag--muted" x="214" y="60" text-anchor="middle">เมื่อมีเหตุ</text>
+        <line class="cs-arrow--branch" x1="214" y1="112" x2="214" y2="150" marker-end="url(#csah)"/>
+        <rect class="cs-box cs-box--branch" x="139" y="70" width="150" height="42" rx="4"/>
+        <text class="cs-code" x="214" y="88" text-anchor="middle">M2</text>
+        <text class="cs-name cs-name--branch" x="214" y="105" text-anchor="middle">ขอเปลี่ยน PA</text>
+        <line class="cs-arrow" x1="112" y1="177" x2="150" y2="177" marker-end="url(#csah)"/>
+        <line class="cs-arrow" x1="278" y1="177" x2="312" y2="177" marker-end="url(#csah)"/>
+        <line class="cs-arrow" x1="440" y1="177" x2="474" y2="177" marker-end="url(#csah)"/>
+        <rect class="cs-box" x="8" y="150" width="104" height="54" rx="4"/>
+        <text class="cs-code" x="60" y="172" text-anchor="middle">M0</text>
+        <text class="cs-name" x="60" y="190" text-anchor="middle">เข้าสู่ระบบ</text>
+        <rect class="cs-box" x="150" y="150" width="128" height="54" rx="4"/>
+        <text class="cs-code" x="214" y="172" text-anchor="middle">M1</text>
+        <text class="cs-name" x="214" y="190" text-anchor="middle">อ่าน PA</text>
+        <rect class="cs-box" x="312" y="150" width="128" height="54" rx="4"/>
+        <text class="cs-code" x="376" y="172" text-anchor="middle">M3</text>
+        <text class="cs-name" x="376" y="190" text-anchor="middle">กรอกผล</text>
+        <rect class="cs-box" x="474" y="150" width="176" height="54" rx="4"/>
+        <text class="cs-code" x="562" y="172" text-anchor="middle">M5</text>
+        <text class="cs-name" x="562" y="190" text-anchor="middle">ติดตาม · ผลลัพธ์</text>
+        <path class="cs-loop" d="M562,204 L562,300 Q562,316 546,316 L230,316 Q214,316 214,300 L214,204" marker-end="url(#csah)"/>
+        <text class="cs-tag" x="388" y="340" text-anchor="middle">ทำทุกรอบ</text>
+        <line class="cs-arrow" x1="376" y1="240" x2="376" y2="204" marker-end="url(#csah)"/>
+        <text class="cs-tag" x="392" y="230" text-anchor="start">ป้อนผลที่กรอก</text>
+        <rect class="cs-box cs-box--found" x="300" y="240" width="152" height="56" rx="4"/>
+        <text class="cs-code" x="376" y="266" text-anchor="middle">M4</text>
+        <text class="cs-name" x="376" y="284" text-anchor="middle">โครงการ</text>
+      </svg>
+    </div>
+    <p class="sub">วงกลาง <b>อ่าน PA → กรอกผล → ติดตาม</b> ทำทุกรอบ · <b>โครงการ</b> คืองานที่ทำให้ตัวชี้วัดบรรลุเป้า · <b>ขอเปลี่ยน PA</b> เมื่อมีเหตุ</p>
   </section>
 
   <!-- 3 · เปิด -->
