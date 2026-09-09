@@ -434,7 +434,7 @@ figure.shot figcaption{font-size:12.5px; color:var(--ink-muted); padding:7px 12p
           <span class="h">ฝึกบนระบบจริง จึงมี 3 ข้อที่ต้องรักษา</span>
           <p><strong class="lbl">กรอกผล (M4)</strong> กด "บันทึกร่าง" เท่านั้น อย่ากด "ส่งรายงาน"</p>
           <p><strong class="lbl">โครงการ (M3)</strong> คงไว้เป็นฉบับร่าง อย่ากด "บันทึกและส่งโครงการ"</p>
-          <p><strong class="lbl">คำขอเปลี่ยน PA (M2)</strong> มีผลจริงทันที ส่งเฉพาะที่ต้องการแก้จริง</p>
+          <p><strong class="lbl">คำขอเปลี่ยน PA (M2)</strong> เข้าคิวถึงผู้ดูแลจริง ส่งเฉพาะที่ต้องการแก้จริง</p>
         </div>
         <p class="note">แต่ละโมดูลมีป้ายกำกับบอกไว้ที่หัวข้อด้วย เช่น "บันทึกร่างเท่านั้น" หรือ "อย่ายืนยันส่ง"</p>
 
@@ -557,7 +557,7 @@ figure.shot figcaption{font-size:12.5px; color:var(--ink-muted); padding:7px 12p
           <div class="wb-row solo">
             <div class="wb-text">
               <p class="lead"><strong class="lbl">เป้าหมาย:</strong> ปรับ PA ของหน่วยงานให้ถูกต้องได้ เปลี่ยนเป้าหมาย น้ำหนัก เพิ่มหรือลบตัวชี้วัด แล้วติดตามสถานะคำขอ</p>
-              <p><strong class="lbl">แนวคิด:</strong> แก้ตัวเลขในตารางเองไม่ได้ ต้องส่ง <strong class="lbl">"คำขอเปลี่ยนแปลง"</strong> รอบนี้ช่วงอนุมัติอัตโนมัติเปิดอยู่ คำขอจึง <b>อนุมัติทันทีและมีผลกับ PA จริง</b> (ปกตินอกช่วงนี้ admin เป็นผู้อนุมัติ)</p>
+              <p><strong class="lbl">แนวคิด:</strong> แก้ตัวเลขในตารางเองไม่ได้ ต้องส่ง <strong class="lbl">"คำขอเปลี่ยนแปลง"</strong> ซึ่งตามปกติจะ <b>เข้าคิวให้ผู้ดูแลพิจารณา</b> ไม่ได้มีผลกับ PA ทันที</p>
             </div>
           </div>
 
@@ -596,7 +596,7 @@ figure.shot figcaption{font-size:12.5px; color:var(--ink-muted); padding:7px 12p
             <div class="wb-text">
               <div class="do">
                 <span class="h">ลงมือทำ</span>
-                <p>ทบทวน PA จาก M1 หากต้องแก้ (เช่น <b>น้ำหนักรวมยังไม่ครบ 100%</b>) ให้กรอกค่าใหม่ + เหตุผล แล้วกด <strong class="lbl">"ส่งคำขอ"</strong> ระบบจะแสดง <strong class="lbl">"อนุมัติแล้ว — มีผลทันที"</strong></p>
+                <p>ทบทวน PA จาก M1 หากต้องแก้ (เช่น <b>น้ำหนักรวมยังไม่ครบ 100%</b>) ให้กรอกค่าใหม่ + เหตุผล แล้วกด <strong class="lbl">"ส่งคำขอ"</strong> คำขอจะขึ้นสถานะ <strong class="lbl">"รอตรวจสอบ"</strong> จนกว่าผู้ดูแลจะพิจารณา</p>
               </div>
             </div>
           </div>
@@ -610,7 +610,7 @@ figure.shot figcaption{font-size:12.5px; color:var(--ink-muted); padding:7px 12p
             <li><button type="button" class="quiz-opt" data-correct="true">ส่ง "คำขอเปลี่ยนแปลง" ผ่านเมนู "การดำเนินการ"</button></li>
             <li><button type="button" class="quiz-opt" data-correct="false">โทรให้ admin แก้ให้ทุกครั้ง</button></li>
           </ul>
-          <p class="quiz-feedback" hidden><b>เฉลย:</b> แก้เองในตารางไม่ได้ — ต้องส่ง "คำขอเปลี่ยนแปลง" · รอบอบรมนี้ช่วงอนุมัติอัตโนมัติเปิดอยู่จึงมีผลทันที (ปกตินอกช่วงนี้ admin เป็นผู้อนุมัติ)</p>
+          <p class="quiz-feedback" hidden><b>เฉลย:</b> แก้เองในตารางไม่ได้ — ต้องส่ง "คำขอเปลี่ยนแปลง" · ตามปกติคำขอจะเข้าคิวให้ผู้ดูแลพิจารณา ไม่ได้มีผลกับ PA ทันที</p>
         </div>
 
         <label class="checkpoint"><input type="checkbox" data-cp="m2"><span class="cp-label">PA ของหน่วยงานฉันถูกปรับให้ถูกต้อง (เช่น น้ำหนักรวม = 100%) และฉันรู้ว่าติดตามคำขอได้ที่ <b>/my-change-requests</b></span></label>
@@ -823,7 +823,8 @@ figure.shot figcaption{font-size:12.5px; color:var(--ink-muted); padding:7px 12p
               <ul class="plain">
                 <li>เฉพาะผลที่สถานะ <strong class="lbl">"อนุมัติแล้ว"</strong> เท่านั้นที่ขึ้นรายงาน PDF</li>
                 <li>คอลัมน์ <strong class="lbl">"งวด"</strong> = รอบล่าสุดที่กรอก</li>
-                <li class="note">เมนู "รายงาน" เป็นของ admin — requester ดูคะแนนผ่าน dashboard ของตนเอง</li>
+                <li>เมนู <strong class="lbl">"รายงาน"</strong> เปิดให้หน่วยงานโหลดข้อมูล<b>ของหน่วยงานตัวเอง</b>ได้แล้ว — <b>Excel</b> (ชุดข้อมูลไว้ทำ pivot ต่อ) และ <b>PDF</b> (สรุปผลดำเนินงาน)</li>
+                <li class="note">ไม่มีช่องให้เลือกหน่วยงาน — ระบบล็อกเป็นของหน่วยงานท่านให้อยู่แล้ว</li>
               </ul>
             </div>
             <figure class="wb-fig">
@@ -880,7 +881,7 @@ figure.shot figcaption{font-size:12.5px; color:var(--ink-muted); padding:7px 12p
             <summary>น้ำหนักรวมไม่ครบ 100% ต้องแก้ไขอย่างไร?</summary>
             <div class="a">
               <p>เปิด <strong class="lbl">"ตัวชี้วัดของหน่วยงาน"</strong> (<code>/my-pa</code>) — สรุปด้านบนจะเป็นสีเหลืองหากน้ำหนักรวม ≠ 100% → กดเมนู <strong class="lbl">"การดำเนินการ"</strong> (จุด 3 จุด) ของตัวชี้วัดที่ต้องการ → เลือกขอแก้น้ำหนัก กรอกค่าใหม่ + เหตุผล → กด <strong class="lbl">"ส่งคำขอ"</strong></p>
-              <p class="note">รอบอบรมนี้ช่วงอนุมัติอัตโนมัติเปิดอยู่ คำขอจึงมีผลทันที</p>
+              <p class="note">คำขอจะขึ้นสถานะ "รอตรวจสอบ" แล้วเข้าคิวให้ผู้ดูแลพิจารณา — ติดตามผลได้ที่เมนู "คำขอเปลี่ยนแปลง PA ของฉัน"</p>
             </div>
           </details>
           <details>
